@@ -15,6 +15,9 @@ header{position:absolute;z-index:5;top:0;left:0;right:0;border-bottom:1px solid 
 .kicker{color:var(--gold);font-size:.9rem;letter-spacing:.22em;text-transform:uppercase;font-weight:bold}.compass{color:var(--gold);font-size:2.4rem;margin-bottom:10px}.hero h1{font-size:clamp(2.7rem,6vw,5.8rem);line-height:.98;max-width:980px;margin:18px auto 22px;text-transform:uppercase;letter-spacing:.015em;text-shadow:0 3px 20px #00151e}.hero p{font-size:clamp(1.1rem,2vw,1.35rem);font-style:italic;max-width:650px;margin:0 auto 30px;color:#f4ead8}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;text-decoration:none;background:var(--gold);color:#17282c;padding:13px 23px;border-radius:4px;font-weight:bold;border:1px solid var(--gold);transition:transform .18s,background .18s}.btn:hover{transform:translateY(-2px);background:#f0cc8d}.btn.secondary{background:transparent;color:var(--gold)}.btn.secondary:hover{background:rgba(228,185,109,.12)}.btn+.btn{margin-top:10px}
 .paper{background:var(--paper);color:var(--ink);padding:78px 0}.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}.section-mark{font-size:2.6rem;color:#93652b}.paper h2,.expansion h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;margin:8px 0 18px}.paper .kicker{color:#8b5c24}.lead{font-size:1.15rem;font-style:italic}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}.feature{border-top:1px solid #c8b58f;padding-top:14px;font-size:.92rem}.feature strong{display:block;font-size:1rem;margin-bottom:4px}.art-panel{min-height:360px;border:5px solid #d4ad66;box-shadow:0 12px 28px #17303935;background:linear-gradient(135deg,rgba(25,76,93,.45),rgba(10,38,53,.65)),url("images/plateau.png") center/cover;display:flex;align-items:end;padding:28px;position:relative;overflow:hidden}.art-panel:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(119,169,183,.35) 0,transparent 36%),linear-gradient(160deg,transparent 40%,rgba(6,27,41,.75) 90%)}.art-copy{position:relative;color:#f6e5bf}.art-copy .big{font-size:clamp(2rem,4vw,3.5rem);line-height:1;text-transform:uppercase}
+.simple{margin-top:44px;padding:24px 28px;border-left:5px solid #93652b;background:#eadfc8;text-align:center}
+.simple h3{margin:4px 0 10px;font-size:clamp(1.2rem,2.4vw,1.6rem);color:#173642}
+.simple p{margin:0 auto;max-width:760px;font-size:1.03rem}
 .expansion{padding:80px 0;background:radial-gradient(circle at 85% 15%,#154454 0,transparent 36%),var(--sea);position:relative;overflow:hidden}.expansion-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:55px;align-items:center}.cover{min-height:390px;background:linear-gradient(160deg,rgba(5,25,35,.05),rgba(5,25,35,.8)),url("images/corsaires-d-alger.png") center/cover;border:5px solid var(--gold);box-shadow:0 14px 35px #0005;display:flex;align-items:end;padding:24px}.cover-label{font-size:clamp(2rem,4vw,3.1rem);font-weight:bold;text-transform:uppercase;line-height:.95;text-shadow:0 3px 12px #000}.expansion h2{margin-top:10px}.expansion .lead{color:var(--gold)}.expansion p{color:#e4e0d6}.mini-list{display:flex;flex-wrap:wrap;gap:10px 22px;margin:24px 0 30px;color:#e8d2a9;font-size:.92rem}.mini-list span:before{content:"✦";color:var(--gold);margin-right:8px}
 .future{padding:70px 0;background:#0b2b36;border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center}.future h2{font-size:clamp(2rem,4vw,3rem);margin:10px 0}.future p{max-width:700px;margin:0 auto;color:#d4d4ca}.future-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px;text-align:left}.future-card{border:1px solid var(--line);padding:22px;background:#071e29aa}.future-card .symbol{font-size:1.7rem;color:var(--gold)}.future-card h3{margin:8px 0}.future-card p{font-size:.93rem;margin:0;color:#c8cfc9}.preview-tag{display:inline-block;margin-top:15px;padding:3px 9px;border:1px solid var(--line);border-radius:99px;color:var(--gold);font-size:.78rem;letter-spacing:.04em}
 footer{padding:26px 0;color:#b9c4c2;font-size:.9rem}.foot{display:flex;justify-content:space-between;gap:20px;align-items:center}.foot a{color:var(--gold);text-decoration:none}
@@ -60,6 +63,15 @@ footer{padding:26px 0;color:#b9c4c2;font-size:.9rem}.foot{display:flex;justify-c
       <div class="art-copy"><div class="kicker">Cap sur l’aventure</div><div class="big">L’histoire<br>prend le large</div></div>
     </div>
   </div>
+  <div class="wrap">
+    <div class="simple">
+      <div class="kicker">Simple à jouer</div>
+      <h3>Un dé de 6, un crayon, du papier… et c’est parti pour l’aventure.</h3>
+      <p>Pas de figurines à assembler, pas de plateaux à acheter, pas de longues heures de préparation :
+      <strong>roll6.net</strong> se joue avec ce que vous avez déjà sous la main. On dessine la carte, on note son navire,
+      on lance le dé — et l’histoire commence. Le sel de l’aventure tient dans un seul D6.</p>
+    </div>
+  </div>
 </section>
 <section class="expansion" id="extension">
   <div class="wrap expansion-grid">
@@ -91,6 +103,6 @@ footer{padding:26px 0;color:#b9c4c2;font-size:.9rem}.foot{display:flex;justify-c
   </div>
 </section>
 </main>
-<footer><div class="wrap foot"><div><strong>⚓ roll6.net</strong> · Pirates de la Méditerranée</div><div><a href="#accueil">Retour en haut ↑</a> · <a href="/corsaires.html">Corsaires d’Alger</a></div></div></footer>
+<footer><div class="wrap foot"><div><strong>⚓ roll6.net</strong> · Pirates de la Méditerranée</div><div><a href="#accueil">Retour en haut ↑</a> · <a href="/corsaires.html">Corsaires d’Alger</a> · <a href="https://github.com/nazimboudeffa/roll6-net" target="_blank" rel="noopener">Code source sur GitHub ↗</a></div></div></footer>
 </body>
 </html>
