@@ -49,7 +49,7 @@ dépendance externe, conçues pour rester lisibles, rapides et hébergeables n'i
 ## Un travail de recherche au long cours
 
 > **Pirates de la Méditerranée n'est pas un projet improvisé : c'est un travail de recherche
-> qui dure depuis longtemps.** vous pouvez voir [La FRise Chronologique](https://www.figma.com/design/u4aIZxcOnKkFYFPz5sH27d/Frise-Chronologique-France-Alg%C3%A9rie?node-id=0-1&t=o22X3ySVviql41H3-1)
+> qui dure depuis longtemps.** vous pouvez voir [La Frise Chronologique](https://www.figma.com/design/u4aIZxcOnKkFYFPz5sH27d/Frise-Chronologique-France-Alg%C3%A9rie?node-id=0-1&t=o22X3ySVviql41H3-1)
 
 Ce projet est le fruit d'une recherche patiente et continue, menée sur plusieurs années.
 
