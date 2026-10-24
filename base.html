@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corsaires de la Méditerranée — Règles</title>
+<style>
+  :root {
+    --ink: #20343a;
+    --muted: #53666b;
+    --sea: #dcebf0;
+    --sea-deep: #b8d4df;
+    --sand: #f3ead2;
+    --paper: #fffdf7;
+    --accent: #8c3d2e;
+    --gold: #a87922;
+    --line: #c8d3d2;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: #e8e7df;
+    font: 16px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  header {
+    background: var(--sea);
+    border-bottom: 5px solid var(--gold);
+    padding: 3rem 1.25rem 2.5rem;
+    text-align: center;
+  }
+  .eyebrow {
+    margin: 0 0 .5rem;
+    text-transform: uppercase;
+    letter-spacing: .22em;
+    font-size: .76rem;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  h1, h2, h3 { line-height: 1.2; }
+  h1 {
+    max-width: 900px;
+    margin: 0 auto .8rem;
+    font: 700 clamp(2rem, 5vw, 3.6rem)/1.08 Georgia, "Times New Roman", serif;
+    letter-spacing: .015em;
+  }
+  header p { max-width: 720px; margin: 0 auto; color: var(--muted); }
+  .page {
+    max-width: 1020px;
+    margin: 2rem auto;
+    padding: 0 1rem 3rem;
+  }
+  nav {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.1rem 1.4rem;
+    margin-bottom: 1.5rem;
+  }
+  nav strong { display: block; margin-bottom: .35rem; }
+  nav ul { columns: 2; margin: .25rem 0 0; padding-left: 1.25rem; }
+  nav a { color: #245a6b; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  section, .callout {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: clamp(1.1rem, 3vw, 2rem);
+    margin: 1.25rem 0;
+    break-inside: avoid;
+  }
+  h2 {
+    margin: 0 0 1rem;
+    font: 700 1.7rem/1.2 Georgia, "Times New Roman", serif;
+    color: var(--accent);
+  }
+  h3 { margin: 1.35rem 0 .5rem; font-size: 1.1rem; }
+  p { margin: .5rem 0 .85rem; }
+  ul, ol { padding-left: 1.35rem; }
+  li { margin: .28rem 0; }
+  .callout {
+    border-left: 5px solid var(--gold);
+    background: #fff8e8;
+  }
+  .callout strong { color: #704e11; }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: .65rem;
+    margin: 1rem 0;
+  }
+  .stat {
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    padding: .8rem .6rem;
+    text-align: center;
+    background: #f4f8f7;
+  }
+  .stat b { display: block; font-size: 1.45rem; color: var(--accent); }
+  .stat span { display: block; color: var(--muted); font-size: .82rem; }
+  table { border-collapse: collapse; width: 100%; margin: .85rem 0; font-size: .95rem; }
+  th, td { border: 1px solid var(--line); padding: .65rem .75rem; text-align: left; vertical-align: top; }
+  th { background: var(--sea); }
+  tbody tr:nth-child(even) { background: #f7f8f4; }
+  .formula {
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 9px;
+    background: var(--sea);
+    text-align: center;
+    font: 700 1.15rem Georgia, "Times New Roman", serif;
+  }
+  .small { color: var(--muted); font-size: .9rem; }
+  footer { text-align: center; color: var(--muted); padding: 1rem; font-size: .85rem; }
+  @media (max-width: 650px) {
+    nav ul { columns: 1; }
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    table { font-size: .87rem; }
+    th, td { padding: .5rem; }
+  }
+  @media print {
+    @page { size: A4; margin: 15mm; }
+    body { background: white; font-size: 10.5pt; }
+    header { padding: 1.2rem 0 1rem; background: white; border-bottom: 2px solid #777; }
+    .page { max-width: none; margin: 0; padding: 0; }
+    nav { display: none; }
+    section, .callout { border: 0; border-radius: 0; padding: .35rem 0; margin: .55rem 0; }
+    h2 { font-size: 16pt; }
+    h3 { font-size: 11pt; }
+    a { color: inherit; text-decoration: none; }
+    .stats { gap: .3rem; }
+    .stat { padding: .4rem; }
+    section { break-inside: auto; }
+    table { break-inside: avoid; }
+    footer { padding: .5rem 0; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <p class="eyebrow">Livre de règles · Base</p>
+  <h1>Jeu de base</h1>
+  <p>Amasser le plus de richesses.</p>
+</header>
+
+<main class="page">
+
+  <section id="but">
+    <h2>1. But du jeu</h2>
+    <p>De 2 à 4 joueurs incarnent des capitaines corsaires qui sillonnent la Méditerranée. Ils cherchent des navires marchands, affrontent leurs adversaires, accumulent des richesses et reviennent à leur port d'attache.</p>
+  </section>
+
+</main>
+
+  <footer>
+    Pirates de la Méditerranée · Règles de base
+  </footer>
+</main>
+</body>
+</html>
