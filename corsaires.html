@@ -1,1201 +1,351 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Corsaires d'Alger — Règles du jeu</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corsaires de la Méditerranée — Règles</title>
 <style>
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        margin: 0;
-        background: #eee8dc;
-        color: #211d18;
-        font-family: Georgia, "Times New Roman", serif;
-        line-height: 1.6;
-    }
-
-    header {
-        background: #172b35;
-        color: #f4e8ce;
-        text-align: center;
-        padding: 55px 20px;
-        border-bottom: 8px solid #b58a4a;
-    }
-
-    .series-name {
-        margin-bottom: 12px;
-        font-size: 14px;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        color: #d7bd8d;
-    }
-
-    header h1 {
-        margin: 0;
-        font-size: 48px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-    }
-
-    header p {
-        margin: 10px 0 0;
-        font-size: 20px;
-        font-style: italic;
-    }
-
-    main {
-        max-width: 950px;
-        margin: 40px auto;
-        padding: 0 20px;
-    }
-
-    section {
-        background: #f8f3e8;
-        margin-bottom: 28px;
-        padding: 28px;
-        border: 1px solid #cdbf9f;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-
-    h2 {
-        margin-top: 0;
-        color: #173642;
-        border-bottom: 2px solid #b58a4a;
-        padding-bottom: 8px;
-    }
-
-    h3 {
-        color: #70492d;
-    }
-
-    .intro {
-        font-size: 19px;
-        text-align: center;
-    }
-
-    .quote {
-        margin: 25px 0;
-        padding: 18px;
-        background: #e8dfcc;
-        border-left: 5px solid #b58a4a;
-        font-style: italic;
-    }
-
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 15px;
-    }
-
-    .card {
-        padding: 18px;
-        background: #e9e1d0;
-        border: 1px solid #c7b795;
-        text-align: center;
-    }
-
-    .card strong {
-        display: block;
-        font-size: 21px;
-        margin-bottom: 5px;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 15px 0;
-    }
-
-    th, td {
-        padding: 10px;
-        border: 1px solid #c9bda5;
-        text-align: left;
-    }
-
-    th {
-        background: #173642;
-        color: #f8f3e8;
-    }
-
-    tr:nth-child(even) {
-        background: #eee7d8;
-    }
-
-    .important {
-        padding: 18px;
-        background: #ead8b7;
-        border: 2px solid #b58a4a;
-        font-weight: bold;
-    }
-
-    .turn {
-        counter-increment: step;
-        margin: 12px 0;
-        padding: 15px;
-        background: #eee7d8;
-        border-left: 4px solid #70492d;
-    }
-
-    .turn strong {
-        color: #173642;
-    }
-
-    footer {
-        text-align: center;
-        padding: 30px;
-        background: #172b35;
-        color: #f4e8ce;
-    }
-
-    @media (max-width: 600px) {
-        header h1 {
-            font-size: 34px;
-        }
-
-        section {
-            padding: 20px;
-        }
-    }
-
-    /* ===== Mini-jeu ===== */
-    .mgio {
-        background: #f8f3e8;
-        border: 1px solid #cdbf9f;
-        padding: 20px;
-    }
-
-    .mgstats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 10px;
-        margin-bottom: 16px;
-    }
-
-    .mgstat {
-        background: #e9e1d0;
-        border: 1px solid #c7b795;
-        text-align: center;
-        padding: 10px;
-    }
-
-    .mgstat span {
-        display: block;
-        font-size: 13px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: #70492d;
-        margin-top: 4px;
-    }
-
-    .mgstat strong {
-        display: block;
-        font-size: 26px;
-        color: #173642;
-    }
-
-    .mgzone {
-        margin-bottom: 12px;
-        padding: 10px 14px;
-        background: #173642;
-        color: #f4e8ce;
-        font-weight: bold;
-        text-align: center;
-    }
-
-    .mgzone small {
-        font-weight: normal;
-    }
-
-    .mgchips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 16px;
-    }
-
-    .mgchip {
-        padding: 6px 12px;
-        border: 1px solid #c7b795;
-        background: #eee7d8;
-        border-radius: 3px;
-        font-size: 14px;
-        color: #211d18;
-    }
-
-    .mgchip.current {
-        background: #b58a4a;
-        color: #fff;
-        font-weight: bold;
-    }
-
-    .mgchip.move {
-        background: #4a6b5d;
-        color: #fff;
-        cursor: pointer;
-    }
-
-    .mgchip.move:hover {
-        filter: brightness(1.15);
-    }
-
-    .mgbtn-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-bottom: 14px;
-    }
-
-    .mgbtn {
-        border: none;
-        padding: 10px 16px;
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 15px;
-        background: #173642;
-        color: #f8f3e8;
-        cursor: pointer;
-        border-radius: 3px;
-    }
-
-    .mgbtn:hover {
-        background: #2a4a58;
-    }
-
-    .mgbtn:disabled {
-        background: #b9b2a3;
-        cursor: not-allowed;
-    }
-
-    .mgbtn.exit {
-        background: #70492d;
-    }
-
-    .mgbtn.exit:hover {
-        background: #8a5e3c;
-    }
-
-    .mgenemy {
-        border: 2px solid #70492d;
-        background: #ead8b7;
-        padding: 14px;
-        margin-bottom: 14px;
-    }
-
-    .mgenemy h3 {
-        margin: 0 0 6px;
-    }
-
-    .mgenemy-stats {
-        margin: 4px 0;
-    }
-
-    .mglog {
-        background: #f4eedd;
-        border: 1px dashed #c9bda5;
-        padding: 14px;
-        max-height: 240px;
-        overflow-y: auto;
-        font-size: 15px;
-    }
-
-    .mglog p {
-        margin: 5px 0;
-    }
-
-    .mglog .good {
-        color: #1f5c38;
-    }
-
-    .mglog .bad {
-        color: #802c2c;
-    }
-
-    .mglog .info {
-        color: #70492d;
-    }
-
-    .mgover {
-        border: 3px solid #b58a4a;
-        background: #ead8b7;
-        padding: 16px;
-        text-align: center;
-        font-size: 19px;
-        margin-bottom: 14px;
-    }
-
-    .mg-help {
-        font-size: 15px;
-    }
-
-    .btn-hero {
-        display: inline-block;
-        margin-top: 28px;
-        padding: 14px 30px;
-        border-radius: 999px;
-        background: linear-gradient(135deg, #b58a4a, #8a5e3c);
-        color: #fff;
-        font-weight: bold;
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 18px;
-        text-decoration: none;
-        letter-spacing: 1px;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-        transition: transform .15s ease, filter .15s ease;
-    }
-
-    .btn-hero:hover {
-        filter: brightness(1.1);
-        transform: translateY(-2px);
-    }
-
-    html {
-        scroll-behavior: smooth;
-    }
+  :root {
+    --ink: #20343a;
+    --muted: #53666b;
+    --sea: #dcebf0;
+    --sea-deep: #b8d4df;
+    --sand: #f3ead2;
+    --paper: #fffdf7;
+    --accent: #8c3d2e;
+    --gold: #a87922;
+    --line: #c8d3d2;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: #e8e7df;
+    font: 16px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  header {
+    background: var(--sea);
+    border-bottom: 5px solid var(--gold);
+    padding: 3rem 1.25rem 2.5rem;
+    text-align: center;
+  }
+  .eyebrow {
+    margin: 0 0 .5rem;
+    text-transform: uppercase;
+    letter-spacing: .22em;
+    font-size: .76rem;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  h1, h2, h3 { line-height: 1.2; }
+  h1 {
+    max-width: 900px;
+    margin: 0 auto .8rem;
+    font: 700 clamp(2rem, 5vw, 3.6rem)/1.08 Georgia, "Times New Roman", serif;
+    letter-spacing: .015em;
+  }
+  header p { max-width: 720px; margin: 0 auto; color: var(--muted); }
+  .page {
+    max-width: 1020px;
+    margin: 2rem auto;
+    padding: 0 1rem 3rem;
+  }
+  nav {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.1rem 1.4rem;
+    margin-bottom: 1.5rem;
+  }
+  nav strong { display: block; margin-bottom: .35rem; }
+  nav ul { columns: 2; margin: .25rem 0 0; padding-left: 1.25rem; }
+  nav a { color: #245a6b; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  section, .callout {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: clamp(1.1rem, 3vw, 2rem);
+    margin: 1.25rem 0;
+    break-inside: avoid;
+  }
+  h2 {
+    margin: 0 0 1rem;
+    font: 700 1.7rem/1.2 Georgia, "Times New Roman", serif;
+    color: var(--accent);
+  }
+  h3 { margin: 1.35rem 0 .5rem; font-size: 1.1rem; }
+  p { margin: .5rem 0 .85rem; }
+  ul, ol { padding-left: 1.35rem; }
+  li { margin: .28rem 0; }
+  .callout {
+    border-left: 5px solid var(--gold);
+    background: #fff8e8;
+  }
+  .callout strong { color: #704e11; }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: .65rem;
+    margin: 1rem 0;
+  }
+  .stat {
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    padding: .8rem .6rem;
+    text-align: center;
+    background: #f4f8f7;
+  }
+  .stat b { display: block; font-size: 1.45rem; color: var(--accent); }
+  .stat span { display: block; color: var(--muted); font-size: .82rem; }
+  table { border-collapse: collapse; width: 100%; margin: .85rem 0; font-size: .95rem; }
+  th, td { border: 1px solid var(--line); padding: .65rem .75rem; text-align: left; vertical-align: top; }
+  th { background: var(--sea); }
+  tbody tr:nth-child(even) { background: #f7f8f4; }
+  .formula {
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 9px;
+    background: var(--sea);
+    text-align: center;
+    font: 700 1.15rem Georgia, "Times New Roman", serif;
+  }
+  .small { color: var(--muted); font-size: .9rem; }
+  footer { text-align: center; color: var(--muted); padding: 1rem; font-size: .85rem; }
+  @media (max-width: 650px) {
+    nav ul { columns: 1; }
+    .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    table { font-size: .87rem; }
+    th, td { padding: .5rem; }
+  }
+  @media print {
+    @page { size: A4; margin: 15mm; }
+    body { background: white; font-size: 10.5pt; }
+    header { padding: 1.2rem 0 1rem; background: white; border-bottom: 2px solid #777; }
+    .page { max-width: none; margin: 0; padding: 0; }
+    nav { display: none; }
+    section, .callout { border: 0; border-radius: 0; padding: .35rem 0; margin: .55rem 0; }
+    h2 { font-size: 16pt; }
+    h3 { font-size: 11pt; }
+    a { color: inherit; text-decoration: none; }
+    .stats { gap: .3rem; }
+    .stat { padding: .4rem; }
+    section { break-inside: auto; }
+    table { break-inside: avoid; }
+    footer { padding: .5rem 0; }
+  }
 </style>
-
 </head>
-
 <body>
-
 <header>
-    <div class="series-name">Pirates de la Méditerranée</div>
-    <h1>⚓ Corsaires d'Alger ⚓</h1>
-    <p>La Méditerranée est à vous. Si vous osez la parcourir.</p>
-    <a class="btn-hero" href="#mini-jeu">🎮 Jouer en ligne</a>
+  <p class="eyebrow">Livre de règles · Adaptation maison</p>
+  <h1>Corsaires de la Méditerranée</h1>
+  <p>Une adaptation pour une carte de la Méditerranée divisée en 37 zones maritimes numérotées et de nombreuses villes côtières.</p>
 </header>
 
-<main>
+<main class="page">
+  <nav aria-label="Sommaire">
+    <strong>Sommaire</strong>
+    <ul>
+      <li><a href="#but">But du jeu</a></li>
+      <li><a href="#materiel">Matériel</a></li>
+      <li><a href="#depart">Mise en place</a></li>
+      <li><a href="#navigation">Navigation et ports</a></li>
+      <li><a href="#tour">Déroulement d’un tour</a></li>
+      <li><a href="#exploration">Exploration</a></li>
+      <li><a href="#combat">Combats navals</a></li>
+      <li><a href="#butin">Butin et prestige</a></li>
+      <li><a href="#evenements">Événements maritimes</a></li>
+      <li><a href="#escales">Réparations et escales</a></li>
+      <li><a href="#fin">Fin de partie</a></li>
+      <li><a href="#plateau">Adaptation au plateau</a></li>
+    </ul>
+  </nav>
 
-<section>
-    <p class="intro">
-        <strong>Corsaires d'Alger</strong> est un jeu de stratégie et d'aventure
-        pour <strong>2 à 4 joueurs</strong>.
-        Chaque joueur dirige une maison de corsaires basée à Alger.
-        Explorez la Méditerranée, capturez des navires, accumulez des richesses
-        et tentez de rentrer au port avant que la chance ne tourne.
-    </p>
+  <div class="callout">
+    <strong>À propos de cette version :</strong> ce document présente des règles proposées pour jouer sur le plateau fourni. Il s’agit d’une adaptation maison, et non d’une transcription officielle des règles de Corsaires.
+  </div>
 
+  <section id="but">
+    <h2>1. But du jeu</h2>
+    <p>De 2 à 4 joueurs incarnent des capitaines corsaires qui sillonnent la Méditerranée. Ils cherchent des navires marchands, affrontent leurs adversaires, accumulent des richesses et reviennent à Alger pour convertir leur butin en prestige.</p>
+    <ul>
+      <li><strong>Objectif :</strong> être le premier à atteindre 20 points de prestige.</li>
+      <li><strong>Prise de risque :</strong> le butin transporté à bord n’est pas sécurisé tant qu’il n’a pas été rapporté à Alger.</li>
+      <li><strong>Choix tactique :</strong> poursuivre une expédition lucrative ou rentrer au port avant de perdre ses gains.</li>
+    </ul>
+  </section>
 
-<div class="quote">
-    « Le meilleur corsaire n'est pas celui qui prend le plus,
-    mais celui qui revient avec son butin. »
-</div>
+  <section id="materiel">
+    <h2>2. Matériel</h2>
+    <ul>
+      <li>Le plateau imprimé, composé de 37 zones maritimes numérotées.</li>
+      <li>Un dé à six faces.</li>
+      <li>Un pion par navire corsaire.</li>
+      <li>Des jetons ou pièces pour représenter les richesses.</li>
+      <li>Des jetons pour représenter les navires marchands et militaires rencontrés.</li>
+      <li>Une fiche de suivi par joueur pour noter la coque, l’équipage, les canons, le butin et le prestige.</li>
+    </ul>
+    <p class="small">Les points noirs sur la carte désignent les villes. Les numéros 1 à 37 identifient les zones maritimes.</p>
+  </section>
 
-
-</section>
-
-<section>
-    <h2>🎯 But du jeu</h2>
-
-
-<p>
-    Le premier joueur à atteindre <strong>20 points de prestige</strong>
-    déclenche la fin de la partie.
-</p>
-
-<p>
-    Le joueur possédant le plus de prestige à la fin est nommé
-    <strong>Grand Corsaire d'Alger</strong>.
-</p>
-
-<div class="important">
-    ⚠️ Attention : le butin n'est comptabilisé que lorsqu'il est
-    ramené à Alger. Un navire coulé ou capturé par un adversaire
-    perd tout son butin non sécurisé.
-</div>
-
-
-</section>
-
-<section>
-    <h2>🧰 Matériel nécessaire</h2>
-
-
-<div class="grid">
-    <div class="card">
-        <strong>🗺️ 1 feuille</strong>
-        Le plateau
+  <section id="depart">
+    <h2>3. Mise en place</h2>
+    <p>Tous les joueurs commencent à Alger, qui sert de port principal. Placez les pions dans une zone maritime adjacente à Alger. Si plusieurs joueurs commencent dans la même zone, leurs navires peuvent y coexister.</p>
+    <h3>Caractéristiques de départ de chaque corsaire</h3>
+    <div class="stats">
+      <div class="stat"><b>5</b><span>Coque</span></div>
+      <div class="stat"><b>4</b><span>Marins</span></div>
+      <div class="stat"><b>2</b><span>Canons</span></div>
+      <div class="stat"><b>0</b><span>Butin</span></div>
+      <div class="stat"><b>0</b><span>Prestige</span></div>
     </div>
+    <p>La coque représente la résistance du navire. Les marins représentent l’équipage disponible. Les canons donnent un bonus aux combats.</p>
+  </section>
 
-    <div class="card">
-        <strong>🎲 1 D6</strong>
-        Pour les actions et combats
+  <section id="navigation">
+    <h2>4. Navigation et villes côtières</h2>
+    <h3>Se déplacer entre les zones</h3>
+    <p>Une action de navigation permet de déplacer son navire d’une zone maritime vers une autre qui partage une frontière maritime avec la zone de départ. Les frontières visibles sur le plateau déterminent les déplacements possibles.</p>
+    <h3>Accoster dans une ville</h3>
+    <p>Un navire peut accoster lorsqu’il se trouve dans une zone maritime qui touche la côte de cette ville. Le pion reste dans la zone maritime : la ville est considérée comme un port d’escale, pas comme une zone maritime supplémentaire.</p>
+    <h3>Règle des frontières</h3>
+    <p>Il est interdit de traverser une bande de terre pour rejoindre une zone qui ne partage pas de frontière maritime avec la zone de départ. En cas de doute, les joueurs doivent se mettre d’accord sur les zones voisines avant de commencer la partie.</p>
+    <div class="callout"><strong>Note de préparation :</strong> une liste des adjacences entre les 37 zones peut être créée à part pour clarifier les frontières difficiles à distinguer sur l’impression.</div>
+  </section>
+
+  <section id="tour">
+    <h2>5. Déroulement d’un tour</h2>
+    <p>Chaque joueur dispose de <strong>3 actions par tour</strong>. Il peut répéter une action plusieurs fois, sauf règle contraire.</p>
+    <table>
+      <thead><tr><th>Action</th><th>Effet</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Naviguer</strong></td><td>Déplacer le navire vers une zone maritime voisine.</td></tr>
+        <tr><td><strong>Explorer</strong></td><td>Lancer le dé pour déterminer une rencontre maritime.</td></tr>
+        <tr><td><strong>Attaquer</strong></td><td>Combattre un navire présent dans la même zone.</td></tr>
+        <tr><td><strong>Réparer</strong></td><td>Dépenser 2 richesses pour récupérer 1 point de coque.</td></tr>
+        <tr><td><strong>Recruter</strong></td><td>Dépenser 2 richesses pour récupérer 1 marin.</td></tr>
+        <tr><td><strong>Accoster / vendre</strong></td><td>Dans un port, vendre le butin à Alger pour le sécuriser et gagner du prestige.</td></tr>
+      </tbody>
+    </table>
+    <p>Accoster et vendre sont regroupés en une seule action dans cette adaptation. Le joueur peut aussi garder son butin à bord et repartir sans le vendre.</p>
+  </section>
+
+  <section id="exploration">
+    <h2>6. Explorer la Méditerranée</h2>
+    <p>Dépenser une action pour explorer permet de lancer un dé et de découvrir une rencontre dans la zone maritime où se trouve le navire.</p>
+    <table>
+      <thead><tr><th>Résultat du dé</th><th>Rencontre</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Mer calme : rien ne se passe.</td></tr>
+        <tr><td>2</td><td>Petit marchand.</td></tr>
+        <tr><td>3</td><td>Petit marchand.</td></tr>
+        <tr><td>4</td><td>Gros marchand.</td></tr>
+        <tr><td>5</td><td>Navire militaire.</td></tr>
+        <tr><td>6</td><td>Convoi exceptionnel.</td></tr>
+      </tbody>
+    </table>
+    <p>Placez un jeton de navire rencontré dans la zone. Découvrir un navire ne le capture pas automatiquement : il faut dépenser une action pour l’attaquer.</p>
+    <p>Pour garder la partie lisible, un seul navire rencontré peut être présent par zone. Si un navire rencontré s’y trouve déjà, ne relancez pas le dé pour cette zone.</p>
+  </section>
+
+  <section id="combat">
+    <h2>7. Combats navals</h2>
+    <p>Lorsqu’un joueur attaque un navire présent dans sa zone, les deux camps lancent un dé et ajoutent leur nombre de canons.</p>
+    <div class="formula">Résultat de combat = résultat du dé (D6) + nombre de canons</div>
+    <table>
+      <thead><tr><th>Comparaison des résultats</th><th>Conséquence</th></tr></thead>
+      <tbody>
+        <tr><td>Écart de 1 ou 2</td><td>Le perdant perd 1 point de coque.</td></tr>
+        <tr><td>Écart de 3 ou plus</td><td>Le gagnant capture le navire.</td></tr>
+        <tr><td>Égalité</td><td>Chaque navire perd 1 membre d’équipage.</td></tr>
+      </tbody>
+    </table>
+    <h3>Caractéristiques des navires rencontrés</h3>
+    <table>
+      <thead><tr><th>Type de navire</th><th>Coque</th><th>Équipage</th><th>Canons</th><th>Butin</th></tr></thead>
+      <tbody>
+        <tr><td>Petit marchand</td><td>2</td><td>2</td><td>0</td><td>3</td></tr>
+        <tr><td>Gros marchand</td><td>3</td><td>3</td><td>1</td><td>6</td></tr>
+        <tr><td>Navire militaire</td><td>4</td><td>4</td><td>2</td><td>6</td></tr>
+        <tr><td>Convoi exceptionnel</td><td>5</td><td>5</td><td>2</td><td>10</td></tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>Un navire qui tombe à 0 point de coque est coulé.</li>
+      <li>Un navire sans équipage ne peut plus attaquer.</li>
+      <li>La capture rapporte le butin indiqué dans le tableau.</li>
+      <li>En combat entre joueurs, le vainqueur peut capturer le butin non sécurisé du perdant.</li>
+      <li>Les combats se déroulent round par round. Chaque nouveau round coûte une nouvelle action au joueur qui a choisi d’attaquer.</li>
+    </ul>
+  </section>
+
+  <section id="butin">
+    <h2>8. Butin et prestige</h2>
+    <p>Le butin gagné en mer n’est pas sécurisé tant qu’il n’a pas été rapporté à Alger. Le joueur prend donc un risque lorsqu’il prolonge une expédition chargée de richesses.</p>
+    <table>
+      <thead><tr><th>Richesses vendues à Alger</th><th>Prestige gagné</th></tr></thead>
+      <tbody>
+        <tr><td>3 richesses</td><td>1 point</td></tr>
+        <tr><td>6 richesses</td><td>2 points</td></tr>
+        <tr><td>10 richesses</td><td>4 points</td></tr>
+      </tbody>
+    </table>
+    <p>Pour éviter les ambiguïtés, comptez le butin sécurisé en lots de 3, 6 ou 10 richesses. Chaque lot vendu rapporte le prestige correspondant et ne peut être compté qu’une seule fois.</p>
+    <p>Les autres villes côtières peuvent servir d’escales, mais seul Alger permet de sécuriser le butin et de gagner du prestige dans cette version.</p>
+  </section>
+
+  <section id="evenements">
+    <h2>9. Événements maritimes</h2>
+    <p>À la fin de chaque tour complet, après que tous les joueurs ont joué une fois, lancez un dé.</p>
+    <table>
+      <thead><tr><th>Dé</th><th>Événement</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Tempête :</strong> chaque navire en mer perd 1 point de coque.</td></tr>
+        <tr><td>2</td><td><strong>Mer calme :</strong> aucun effet.</td></tr>
+        <tr><td>3</td><td><strong>Marché favorable :</strong> la prochaine vente à Alger rapporte 1 richesse supplémentaire.</td></tr>
+        <tr><td>4</td><td><strong>Espion :</strong> le joueur en tête perd 1 point de prestige.</td></tr>
+        <tr><td>5</td><td><strong>Patrouille :</strong> une nouvelle rencontre apparaît dans une zone choisie par le joueur actif.</td></tr>
+        <tr><td>6</td><td><strong>Gros convoi :</strong> un convoi exceptionnel apparaît dans une zone choisie par le joueur actif.</td></tr>
+      </tbody>
+    </table>
+    <p>Le joueur actif ne peut pas faire apparaître un convoi dans sa propre zone.</p>
+  </section>
+
+  <section id="escales">
+    <h2>10. Réparations, recrutement et escales</h2>
+    <ul>
+      <li><strong>Réparer :</strong> dépenser 2 richesses pour récupérer 1 point de coque, jusqu’au maximum de 5.</li>
+      <li><strong>Recruter :</strong> dépenser 2 richesses pour récupérer 1 marin, jusqu’au maximum de 4.</li>
+      <li><strong>Faire escale :</strong> accoster dans une ville côtière adjacente à la zone maritime où se trouve le navire.</li>
+      <li><strong>Retourner à Alger :</strong> vendre le butin, sécuriser les richesses et gagner du prestige.</li>
+    </ul>
+    <p>Les réparations et le recrutement sont autorisés dans n’importe quel port où le navire peut accoster. Cela donne un intérêt tactique aux villes côtières de la carte.</p>
+  </section>
+
+  <section id="fin">
+    <h2>11. Fin de partie</h2>
+    <p>Dès qu’un joueur atteint 20 points de prestige, terminez le tour en cours afin que chaque joueur ait joué le même nombre de tours. Le joueur qui possède le plus de prestige gagne le titre de <strong>Grand Corsaire de la Méditerranée</strong>.</p>
+    <p>En cas d’égalité, le joueur qui possède le plus de richesses sécurisées l’emporte. Si l’égalité persiste, les joueurs partagent la victoire.</p>
+  </section>
+
+  <section id="plateau">
+    <h2>12. Adaptation au plateau de 37 zones</h2>
+    <ul>
+      <li>Les zones maritimes numérotées de 1 à 37 servent de cases de navigation.</li>
+      <li>Les villes côtières sont des ports d’escale, pas des cases supplémentaires.</li>
+      <li>Les frontières maritimes visibles déterminent les déplacements autorisés.</li>
+      <li>Alger est le port principal pour vendre le butin et marquer du prestige.</li>
+      <li>Les joueurs peuvent choisir leurs routes vers l’ouest, les mers italiennes, la mer Égée ou le Levant.</li>
+    </ul>
+    <div class="callout">
+      <strong>Conseil pour la première partie :</strong> jouez d’abord avec ces règles simples. Après une partie de test, vous pourrez ajouter des marchandises propres à chaque port, des alliances, des blocus ou des missions secrètes.
     </div>
-
-    <div class="card">
-        <strong>✏️ 1 stylo</strong>
-        Pour noter les ressources
-    </div>
-
-    <div class="card">
-        <strong>📜 ~30 papiers</strong>
-        Pour les cartes
-    </div>
-</div>
-
-<p>
-    Des pièces, jetons, cailloux ou boutons peuvent servir à représenter
-    les richesses.
-</p>
-
-
-</section>
-
-<section>
-    <h2>🗺️ Mise en place</h2>
-
-
-<p>
-    Dessinez sur une feuille les principales zones de la Méditerranée :
-</p>
-
-<div class="quote">
-    <strong>Alger — Oran — Tunis — Sicile — Malte —
-    Marseille — Barcelone — Baléares — Gibraltar — Atlantique</strong>
-</div>
-
-<p>
-    Chaque joueur dessine ensuite son navire à côté d'Alger.
-</p>
-
-<h3>Votre navire</h3>
-
-<table>
-    <tr>
-        <th>Caractéristique</th>
-        <th>Valeur de départ</th>
-    </tr>
-    <tr>
-        <td>❤️ Coque</td>
-        <td>5</td>
-    </tr>
-    <tr>
-        <td>👥 Équipage</td>
-        <td>4</td>
-    </tr>
-    <tr>
-        <td>💰 Richesse</td>
-        <td>0</td>
-    </tr>
-    <tr>
-        <td>⭐ Prestige</td>
-        <td>0</td>
-    </tr>
-</table>
-
-
-</section>
-
-<section>
-    <h2>⏳ Déroulement d'un tour</h2>
-
-
-<p>
-    Le joueur actif dispose de <strong>3 actions</strong>.
-    Il peut effectuer la même action plusieurs fois.
-</p>
-
-<div class="turn">
-    <strong>⛵ Se déplacer</strong><br>
-    Déplacez votre navire vers une zone adjacente.
-</div>
-
-<div class="turn">
-    <strong>🔭 Chercher</strong><br>
-    Lancez 1D6 et consultez le tableau des rencontres.
-</div>
-
-<div class="turn">
-    <strong>⚔️ Attaquer</strong><br>
-    Attaquez un navire présent dans votre zone.
-</div>
-
-<div class="turn">
-    <strong>🔧 Réparer</strong><br>
-    Payez 2 richesses pour récupérer 1 point de coque.
-</div>
-
-<div class="turn">
-    <strong>👥 Recruter</strong><br>
-    Payez 2 richesses pour récupérer 1 membre d'équipage.
-</div>
-
-<div class="turn">
-    <strong>💰 Vendre</strong><br>
-    À Alger uniquement : convertissez votre cargaison en richesse.
-</div>
-
-
-</section>
-
-<section>
-    <h2>🔭 Explorer la Méditerranée</h2>
-
-
-<p>
-    Lorsque vous utilisez l'action <strong>Chercher</strong>,
-    lancez 1D6 :
-</p>
-
-<table>
-    <tr>
-        <th>D6</th>
-        <th>Rencontre</th>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>🌊 Rien ne se passe</td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>🚢 Petit marchand</td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>🚢 Petit marchand</td>
-    </tr>
-    <tr>
-        <td>4</td>
-        <td>💰 Gros marchand</td>
-    </tr>
-    <tr>
-        <td>5</td>
-        <td>⚔️ Navire militaire</td>
-    </tr>
-    <tr>
-        <td>6</td>
-        <td>🚢 Convoi exceptionnel</td>
-    </tr>
-</table>
-
-
-</section>
-
-<section>
-    <h2>⚔️ Les combats</h2>
-
-
-<p>
-    Pour combattre, chaque navire lance <strong>1D6 + son nombre
-    de canons</strong>.
-</p>
-
-<p>
-    Le navire obtenant le résultat le plus élevé remporte le combat.
-</p>
-
-<table>
-    <tr>
-        <th>Écart</th>
-        <th>Résultat</th>
-    </tr>
-    <tr>
-        <td>1–2</td>
-        <td>Le perdant perd 1 point de coque.</td>
-    </tr>
-    <tr>
-        <td>3 ou +</td>
-        <td>Le gagnant capture le navire.</td>
-    </tr>
-    <tr>
-        <td>Égalité</td>
-        <td>Chaque navire perd 1 équipage.</td>
-    </tr>
-</table>
-
-<div class="important">
-    Un navire sans équipage ne peut plus attaquer.
-    Un navire à 0 coque est coulé et disparaît de la partie.
-</div>
-
-
-</section>
-
-<section>
-    <h2>💰 Le butin</h2>
-
-
-<h3>Petit marchand</h3>
-<p>
-    Réussir l'abordage rapporte <strong>3 richesses</strong>.
-</p>
-
-<h3>Gros marchand</h3>
-<p>
-    Réussir l'abordage rapporte <strong>6 richesses</strong>.
-</p>
-
-<h3>Convoi exceptionnel</h3>
-<p>
-    Réussir l'abordage rapporte <strong>10 richesses</strong>.
-</p>
-
-<p>
-    Le butin reste cependant <strong>non sécurisé</strong> tant que
-    le corsaire n'est pas revenu à Alger.
-</p>
-
-
-</section>
-
-<section>
-    <h2>🏴‍☠️ Prestige</h2>
-
-
-<p>
-    Lorsque vous ramenez votre butin à Alger, vous gagnez du prestige.
-</p>
-
-<table>
-    <tr>
-        <th>Butin ramené</th>
-        <th>Prestige</th>
-    </tr>
-    <tr>
-        <td>3 richesses</td>
-        <td>+1 ⭐</td>
-    </tr>
-    <tr>
-        <td>6 richesses</td>
-        <td>+2 ⭐</td>
-    </tr>
-    <tr>
-        <td>10 richesses</td>
-        <td>+4 ⭐</td>
-    </tr>
-</table>
-
-
-</section>
-
-<section>
-    <h2>🌪️ Événements</h2>
-
-
-<p>
-    À la fin de chaque tour complet, lancez 1D6 :
-</p>
-
-<table>
-    <tr>
-        <th>D6</th>
-        <th>Événement</th>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>🌪️ Tempête : chaque navire en mer perd 1 coque.</td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>🌊 Mer calme : aucun effet.</td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>💰 Marché favorable : les ventes à Alger rapportent +1.</td>
-    </tr>
-    <tr>
-        <td>4</td>
-        <td>🕵️ Espion : le joueur en tête perd 1 prestige.</td>
-    </tr>
-    <tr>
-        <td>5</td>
-        <td>⚔️ Patrouille : lancez une nouvelle rencontre.</td>
-    </tr>
-    <tr>
-        <td>6</td>
-        <td>🚢 Gros convoi : un convoi apparaît dans une zone choisie.</td>
-    </tr>
-</table>
-
-
-</section>
-
-<section>
-    <h2>🏆 Fin de partie</h2>
-
-
-<p>
-    Dès qu'un joueur atteint <strong>20 points de prestige</strong>,
-    terminez le tour en cours afin que tous les joueurs aient joué
-    le même nombre de tours.
-</p>
-
-<p>
-    Le joueur avec le plus de prestige devient
-    <strong>Grand Corsaire d'Alger</strong>.
-</p>
-
-<div class="quote">
-    En cas d'égalité, le joueur possédant le plus de richesses
-    l'emporte. Si l'égalité persiste, les joueurs partagent la victoire.
-</div>
-
-
-</section>
-
-<section>
-    <h2>📜 Règle d'or</h2>
-
-
-<div class="important">
-    Le jeu doit rester rapide et amusant.
-    Si une situation n'est pas prévue par ces règles,
-    les joueurs se mettent d'accord et continuent la partie.
-    Notez ensuite la nouvelle règle pour votre prochaine partie.
-</div>
-
-
-</section>
-
-<section id="mini-jeu">
-    <h2>🎮 Mini-jeu jouable — À l'abordage !</h2>
-
-    <p>
-        Une version <strong>solo</strong> des règles ci-dessus : incarnez un
-        corsaire, naviguez de zone en zone, attaquez les navires et ramenez
-        votre butin à Alger pour gagner du prestige. Objectif :
-        <strong>20 points de prestige</strong> sans vous faire couler !
-    </p>
-
-    <div class="mgio">
-        <div class="mgstats" id="mgstats"></div>
-
-        <div class="mgzone" id="mgzone"></div>
-
-        <div class="mgchips" id="mgmap"></div>
-
-        <div id="mgenemy"></div>
-
-        <div class="mgbtn-row" id="mgactions"></div>
-
-        <div id="mgover"></div>
-
-        <div class="mglog" id="mglog"><p>Aucun journal pour l'instant.</p></div>
-    </div>
-
-    <p class="mg-help">
-        💡 Rappel des règles adaptées : <strong>Chercher</strong> (1 action) fait
-        apparaître un navire à affronter · <strong>Attaquer</strong> (1 action)
-        lance un round de combat (1D6 + canons ; écart 1–2 : –1 coque adverse,
-        écart 3+ : capture) · <strong>Vendre</strong> (1 action, à Alger)
-        sécurise votre cargaison et rapporte du prestige · Canons du navire : 2.
-        Les navires ennemis disposent de leurs propres coque, équipage et canons.
-    </p>
-</section>
-
-<script>
-(function () {
-    "use strict";
-
-    var ZONES = {
-        "Alger": ["Oran", "Tunis", "Baléares"],
-        "Oran": ["Alger", "Gibraltar"],
-        "Tunis": ["Alger", "Sicile", "Malte"],
-        "Sicile": ["Tunis", "Malte", "Marseille"],
-        "Malte": ["Tunis", "Sicile"],
-        "Marseille": ["Sicile", "Barcelone"],
-        "Barcelone": ["Marseille", "Baléares", "Gibraltar"],
-        "Baléares": ["Alger", "Barcelone"],
-        "Gibraltar": ["Oran", "Atlantique", "Barcelone"],
-        "Atlantique": ["Gibraltar"]
-    };
-
-    var ENEMY_TYPES = {
-        "Petit marchand":      { hull: 2, crew: 2, cannons: 0, cargo: 3,  prestige: 0 },
-        "Gros marchand":       { hull: 3, crew: 3, cannons: 1, cargo: 6,  prestige: 0 },
-        "Navire militaire":    { hull: 4, crew: 4, cannons: 3, cargo: 0,  prestige: 2 },
-        "Convoi exceptionnel": { hull: 4, crew: 4, cannons: 2, cargo: 10, prestige: 0 }
-    };
-
-    var MAX_HULL = 5;
-    var MAX_CREW = 4;
-
-    var elStats = document.getElementById('mgstats');
-    var elZone = document.getElementById('mgzone');
-    var elMap = document.getElementById('mgmap');
-    var elEnemy = document.getElementById('mgenemy');
-    var elActions = document.getElementById('mgactions');
-    var elOver = document.getElementById('mgover');
-    var elLog = document.getElementById('mglog');
-
-    var state;
-
-    function d6() { return 1 + Math.floor(Math.random() * 6); }
-
-    function log(msg, cls) {
-        var p = document.createElement('p');
-        if (cls) { p.className = cls; }
-        p.textContent = msg;
-        elLog.appendChild(p);
-        while (elLog.childNodes.length > 40) {
-            elLog.removeChild(elLog.firstChild);
-        }
-        elLog.scrollTop = elLog.scrollHeight;
-    }
-
-    function randomEncounter() {
-        switch (d6()) {
-            case 1: return null;
-            case 2:
-            case 3: return "Petit marchand";
-            case 4: return "Gros marchand";
-            case 5: return "Navire militaire";
-            default: return "Convoi exceptionnel";
-        }
-    }
-
-    function spawn(type) {
-        var t = ENEMY_TYPES[type];
-        state.enemy = {
-            name: type,
-            hull: t.hull,
-            crew: t.crew,
-            cannons: t.cannons,
-            cargo: t.cargo,
-            prestige: t.prestige
-        };
-    }
-
-    function canAct() {
-        if (state.over) { return false; }
-        if (state.actions <= 0) {
-            log("Plus d'actions : terminez d'abord votre tour.", "info");
-            return false;
-        }
-        return true;
-    }
-
-    function checkWin() {
-        if (state.prestige >= 20) { state.over = "win"; }
-        if (state.hull <= 0) { state.over = "lose"; }
-    }
-
-    function doMove(dest) {
-        if (!canAct()) { return; }
-        if (ZONES[state.zone].indexOf(dest) === -1) { return; }
-        state.actions--;
-        if (state.enemy) {
-            log("⛵ Vous quittez la zone : le navire ennemi s'éloigne sans être attaqué.", "info");
-        }
-        state.enemy = null;
-        state.zone = dest;
-        log("⛵ Cap sur " + dest + ".");
-        render();
-    }
-
-    function doSeek() {
-        if (!canAct()) { return; }
-        state.actions--;
-        var type = randomEncounter();
-        if (!type) {
-            log("🔭 Chercher → Mer calme : rien ne se passe.", "info");
-        } else {
-            spawn(type);
-            log("🔭 Chercher → Un " + type + " est signalé dans la zone !", "bad");
-        }
-        render();
-    }
-
-    function combatRound() {
-        var e = state.enemy;
-        var pRoll = d6() + state.cannons;
-        var eRoll = d6() + e.cannons;
-
-        if (pRoll > eRoll) {
-            var margin = pRoll - eRoll;
-            if (margin >= 3) {
-                log("⚔️ Combat (vous " + pRoll + " vs " + eRoll + ") — grande victoire ! Le " + e.name + " est capturé.", "good");
-                captureEnemy();
-                return;
-            }
-            e.hull--;
-            if (e.hull <= 0) {
-                log("⚔️ Combat (vous " + pRoll + " vs " + eRoll + ") — le " + e.name + " est coulé, mais le butin est perdu.", "info");
-                state.enemy = null;
-            } else {
-                log("⚔️ Combat (vous " + pRoll + " vs " + eRoll + ") — vous touchez le " + e.name + " (-1 coque, reste " + e.hull + ").", "good");
-            }
-        } else if (eRoll > pRoll) {
-            var margin2 = eRoll - pRoll;
-            if (margin2 >= 3) {
-                log("⚔️ Combat (vous " + pRoll + " vs " + eRoll + ") — le " + e.name + " prend le dessus et capture votre navire !", "bad");
-                state.over = "lose";
-                return;
-            }
-            state.hull--;
-            if (state.hull <= 0) {
-                log("⚔️ Votre coque explose ! Le navire coule.", "bad");
-                state.over = "lose";
-                return;
-            }
-            log("⚔️ Combat (vous " + pRoll + " vs " + eRoll + ") — le " + e.name + " riposte : -1 coque (reste " + state.hull + ").", "bad");
-        } else {
-            state.crew--;
-            e.crew--;
-            if (state.crew <= 0) {
-                log("⚔️ Égalité (" + pRoll + ") ! Chaque navire perd 1 équipage. Sans équipage, vous battez en retraite.", "bad");
-                state.enemy = null;
-            } else {
-                log("⚔️ Égalité (" + pRoll + ") ! Chaque navire perd 1 équipage (votre équipage : " + state.crew + ").", "info");
-            }
-        }
-    }
-
-    function captureEnemy() {
-        var e = state.enemy;
-        if (e.cargo > 0) {
-            state.cargo += e.cargo;
-            log("💰 Butin : +" + e.cargo + " richesses en cargaison (non sécurisée tant que vous n'êtes pas à Alger).", "good");
-        }
-        if (e.prestige > 0) {
-            state.prestige += e.prestige;
-            log("⭐ Prestige de gloire : +" + e.prestige + " ⭐.", "good");
-        }
-        state.enemy = null;
-        checkWin();
-    }
-
-    function doAttack() {
-        if (!canAct()) { return; }
-        if (!state.enemy) { return; }
-        if (state.crew <= 0) {
-            log("⚔️ Équipage à zéro : impossible d'attaquer.", "bad");
-            return;
-        }
-        state.actions--;
-        combatRound();
-        render();
-    }
-
-    function doRepair() {
-        if (!canAct()) { return; }
-        if (state.hull >= MAX_HULL) {
-            log("🔧 La coque est déjà au maximum (" + MAX_HULL + ").", "info");
-            return;
-        }
-        if (state.wealth < 2) {
-            log("🔧 2 richesses requises pour réparer.", "bad");
-            return;
-        }
-        state.actions--;
-        state.wealth -= 2;
-        state.hull++;
-        log("🔧 Réparation : -2 richesses, +1 coque (" + state.hull + ").", "good");
-        render();
-    }
-
-    function doRecruit() {
-        if (!canAct()) { return; }
-        if (state.crew >= MAX_CREW) {
-            log("👥 Équipage complet (" + MAX_CREW + ").", "info");
-            return;
-        }
-        if (state.wealth < 2) {
-            log("👥 2 richesses requises pour recruter.", "bad");
-            return;
-        }
-        state.actions--;
-        state.wealth -= 2;
-        state.crew++;
-        log("👥 Recrutement : -2 richesses, +1 équipage (" + state.crew + ").", "good");
-        render();
-    }
-
-    function doSell() {
-        if (!canAct()) { return; }
-        if (state.zone !== "Alger") {
-            log("💰 La vente n'est possible qu'à Alger.", "bad");
-            return;
-        }
-        if (state.cargo <= 0) {
-            log("💰 Aucune cargaison à vendre.", "info");
-            return;
-        }
-        state.actions--;
-        var c = state.cargo;
-        var gain = c + (state.market ? 1 : 0);
-        var star = c >= 10 ? 4 : (c >= 6 ? 2 : 1);
-        state.wealth += gain;
-        state.prestige += star;
-        state.cargo = 0;
-        state.market = false;
-        log("💰 Vente à Alger : " + c + " richesses de cargaison → " + gain + " richesses et +" + star + " ⭐.", "good");
-        checkWin();
-        render();
-    }
-
-    function doEndTurn() {
-        state.turn++;
-        state.actions = 3;
-        var ev = d6();
-        var evText = "🌪️ Événement (fin du tour n°" + state.turn + ") : ";
-        switch (ev) {
-            case 1:
-                if (state.zone !== "Alger") {
-                    state.hull--;
-                    log(evText + "Tempête ! Vous êtes en mer : -1 coque (reste " + state.hull + ").", "bad");
-                    if (state.hull <= 0) {
-                        log("💀 Le navire sombre dans la tempête.", "bad");
-                        state.over = "lose";
-                    }
-                } else {
-                    log(evText + "Tempête, mais à Alger vous êtes à l'abri.", "info");
-                }
-                break;
-            case 2:
-                log(evText + "Mer calme. Aucun effet.", "info");
-                break;
-            case 3:
-                state.market = true;
-                log(evText + "Marché favorable : vos prochaines ventes à Alger rapportent +1.", "good");
-                break;
-            case 4:
-                if (state.prestige > 0) {
-                    state.prestige--;
-                    log(evText + "Espion ! Vous perdez 1 ⭐ de prestige (" + state.prestige + ").", "bad");
-                } else {
-                    log(evText + "Espion chez un rival : aucun effet pour vous.", "info");
-                }
-                break;
-            case 5:
-                var t1 = randomEncounter();
-                if (!t1) {
-                    log(evText + "Patrouille : fouille de la zone, rien à signaler.", "info");
-                } else {
-                    spawn(t1);
-                    log(evText + "Patrouille : un " + t1 + " surgit dans votre zone !", "bad");
-                }
-                break;
-            default:
-                spawn("Convoi exceptionnel");
-                log(evText + "Gros convoi signalé dans votre zone !", "bad");
-        }
-        render();
-    }
-
-    function render() {
-        var canAct = state.over === null && state.actions > 0;
-
-        var stats = [
-            ["❤️", state.hull, "Coque"],
-            ["👥", state.crew, "Équipage"],
-            ["🔫", state.cannons, "Canons"],
-            ["💰", state.wealth, "Richesses"],
-            ["📦", state.cargo, "Cargaison"],
-            ["⭐", state.prestige, "Prestige"],
-            ["🔄", state.turn, "Tour"],
-            ["🎯", state.actions, "Actions"]
-        ];
-        elStats.innerHTML = stats.map(function (s) {
-            return '<div class="mgstat"><strong>' + s[1] + '</strong><span>' + s[2] + '</span></div>';
-        }).join("");
-
-        elZone.innerHTML = '🗺️ Zone actuelle : <span style="font-size:22px">' + state.zone +
-            '</span>' + (state.zone === "Alger" ? ' <small>(port d\'attache — on y vend son butin)</small>' : '');
-
-        var chips = [];
-        Object.keys(ZONES).forEach(function (z) {
-            var adjacent = ZONES[state.zone].indexOf(z) !== -1;
-            if (z === state.zone) {
-                chips.push('<span class="mgchip current">⚓ ' + z + '</span>');
-            } else if (adjacent && canAct) {
-                chips.push('<span class="mgchip move" data-zone="' + z + '">⛵ ' + z + '</span>');
-            } else if (adjacent) {
-                chips.push('<span class="mgchip">⛵ ' + z + '</span>');
-            } else {
-                chips.push('<span class="mgchip">' + z + '</span>');
-            }
-        });
-        elMap.innerHTML = chips.join("");
-        var moves = elMap.querySelectorAll('.mgchip.move');
-        for (var i = 0; i < moves.length; i++) {
-            moves[i].addEventListener('click', function () {
-                doMove(this.getAttribute('data-zone'));
-            });
-        }
-
-        if (state.enemy) {
-            var e = state.enemy;
-            elEnemy.innerHTML =
-                '<div class="mgenemy"><h3>🏴 ' + e.name + ' dans la zone</h3>' +
-                '<div class="mgenemy-stats">❤️ Coque ' + e.hull +
-                ' · 👥 Équipage ' + e.crew +
-                ' · 🔫 Canons ' + e.cannons +
-                (e.cargo > 0 ? ' · 📦 Cargaison ' + e.cargo : ' · 🏆 +' + e.prestige + ' ⭐') +
-                '</div></div>';
-        } else {
-            elEnemy.innerHTML = "";
-        }
-
-        var disabled = state.over !== null || state.actions <= 0;
-        var acts = [];
-        acts.push('<button class="mgbtn" id="aSeek"' + (disabled ? ' disabled' : '') + '>🔭 Chercher</button>');
-        acts.push('<button class="mgbtn exit" id="aAttack"' + (disabled || !state.enemy || state.crew <= 0 ? ' disabled' : '') + '>⚔️ Attaquer</button>');
-        acts.push('<button class="mgbtn" id="aRepair"' + (disabled ? ' disabled' : '') + '>🔧 Réparer (−2💰)</button>');
-        acts.push('<button class="mgbtn" id="aRecruit"' + (disabled ? ' disabled' : '') + '>👥 Recruter (−2💰)</button>');
-        acts.push('<button class="mgbtn" id="aSell"' + (disabled || state.zone !== "Alger" || state.cargo <= 0 ? ' disabled' : '') + '>💰 Vendre</button>');
-        acts.push('<button class="mgbtn" id="aEnd"' + (state.over !== null ? ' disabled' : '') + '>🔄 Terminer le tour</button>');
-        elActions.innerHTML = acts.join("");
-
-        var b;
-        (b = document.getElementById('aSeek')) && b.addEventListener('click', doSeek);
-        (b = document.getElementById('aAttack')) && b.addEventListener('click', doAttack);
-        (b = document.getElementById('aRepair')) && b.addEventListener('click', doRepair);
-        (b = document.getElementById('aRecruit')) && b.addEventListener('click', doRecruit);
-        (b = document.getElementById('aSell')) && b.addEventListener('click', doSell);
-        (b = document.getElementById('aEnd')) && b.addEventListener('click', doEndTurn);
-
-        if (state.over === "win") {
-            elOver.innerHTML = '<div class="mgover">🏆 Victoire ! Vous êtes le <strong>Grand Corsaire d\'Alger</strong> avec ' +
-                state.prestige + ' ⭐ et ' + state.wealth + ' richesses.<br>' +
-                '<button class="mgbtn" id="again">🔄 Recommencer</button></div>';
-        } else if (state.over === "lose") {
-            elOver.innerHTML = '<div class="mgover">💀 <strong>Coulé !</strong> Votre navire a sombré en mer... Le destin vous est contraire.<br>' +
-                '<button class="mgbtn" id="again">🔄 Tenter sa chance à nouveau</button></div>';
-        } else {
-            elOver.innerHTML = "";
-        }
-        var ag = document.getElementById('again');
-        if (ag) { ag.addEventListener('click', newGame); }
-    }
-
-    function newGame() {
-        state = {
-            zone: "Alger",
-            hull: MAX_HULL,
-            crew: MAX_CREW,
-            cannons: 2,
-            wealth: 0,
-            cargo: 0,
-            prestige: 0,
-            turn: 1,
-            actions: 3,
-            enemy: null,
-            market: false,
-            over: null
-        };
-        elLog.innerHTML = "";
-        log("Bienvenue à Alger, capitaine !", "info");
-        log("3 actions par tour. Objectif : 20 ⭐ de prestige.", "info");
-        render();
-    }
-
-    newGame();
-})();
-</script>
-
+  </section>
+
+  <footer>
+    Corsaires de la Méditerranée · Règles d’adaptation maison · Document statique, sans implémentation du jeu
+  </footer>
 </main>
-
-<footer>
-    ⚓ Corsaires d'Alger ⚓<br>
-    Prototype de jeu de plateau — Version 0.1<br>
-    <a href="index.html" style="color:#f4e8ce;">Retour à l'accueil</a> ·
-    <a href="robots.html" style="color:#f4e8ce;">Voir Robot Monsters</a>
-</footer>
-
 </body>
 </html>
